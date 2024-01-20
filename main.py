@@ -1,9 +1,16 @@
-import os
 from dataset import Dataset
+import matplotlib.pyplot as plt
+
+
+def plot_bboxes(image, bboxes):
+    img = image.copy()
+    for bbox in bboxes:
+        img = bbox.plot(img)
+    return img
+
 
 dataset = Dataset('../cave_annotations')
-print('train: ', dataset.config.train)
-print('val: ', dataset.config.val)
-print('test: ', dataset.config.test)
-print('nc: ', dataset.config.nc)
-print('names:', dataset.config.names)
+image, bboxes = dataset.load_dataset_train_item('cave_025.bmp')
+img = plot_bboxes(image, bboxes)
+plt.imshow(img)
+plt.show()
